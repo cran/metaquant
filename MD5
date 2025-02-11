@@ -1,0 +1,13 @@
+b2281402bc68a2c6dc1284400d3665ce *DESCRIPTION
+5036829f927e6a3721485a54c88b6707 *NAMESPACE
+9396b571bb31d89943937a37b95c4a3a *R/est.mean.2g.R
+227296e3a68fdeb78c722e919d908727 *R/est.mean.R
+530c7ac6915b28c7253ac46811b554eb *R/est.sd.2g.R
+e9d082e2f5a2b907671cef4faf7aeb90 *R/est.sd.R
+15b71681dbff6134e6f60ab161c08d04 *R/helper.functions.R
+e8ac2d2cc67aa4cd1529fb5ad49c6517 *R/plotdist.R
+f3ff4fb8c2e5197c07fe7d5985e69d97 *man/est.mean.2g.Rd
+9d4d701aab3cdf6b12edd7e9a460cd26 *man/est.mean.Rd
+1913bbaf274e4aae52a2692c17fa3f43 *man/est.sd.2g.Rd
+85628cd2a0638cbafecc4023d9f3788c *man/est.sd.Rd
+d7265ded6eaab2e0b0de6212e60c0322 *man/plotdist.Rd
