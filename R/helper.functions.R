@@ -15,6 +15,12 @@ Fmin<- function(opt_pars,
                 u){
   l3<-opt_pars[1]
   l4<-opt_pars[2]
+  
+  if (l3==0)
+    return (10^10)
+  if (l4==0)
+    return (10^10)
+  
   rho2 <- Sfkml_l3l4(1 - u, l3, l4) - 
     Sfkml_l3l4(u, l3, l4)  
   rho3 <- (Sfkml_l3l4(1/2, l3, l4) - 
@@ -23,58 +29,12 @@ Fmin<- function(opt_pars,
        Sfkml_l3l4(1/2, l3, l4))
   rho4 <- (Sfkml_l3l4(3/4, l3, l4) - Sfkml_l3l4(1/4, l3, l4))/rho2 
   
-  
   if ((Sfkml_l3l4(1 - u, l3, l4) - Sfkml_l3l4(u, l3, l4))<0) 
     return(10^10)
   else
     return((rho3.hat - rho3)^2 + (rho4.hat - rho4)^2)
 }
 
-
-################################################################################
-
-Fmin_2g<- function(opt_pars, 
-                   rho3.hat_c,
-                   rho4.hat_c, 
-                   u_c,
-                   w_c,
-                   rho3.hat_t,
-                   rho4.hat_t, 
-                   u_t,
-                   w_t
-){
-  l3<-opt_pars[1]
-  l4<-opt_pars[2]
-  
-      
-  rho2_c <- Sfkml_l3l4(1 - u_c, l3, l4) - 
-    Sfkml_l3l4(u_c, l3, l4) 
-  rho3_c <- (Sfkml_l3l4(1/2, l3, l4) - 
-               Sfkml_l3l4(u_c, l3, l4))/
-    (Sfkml_l3l4(1 - u_c, l3, l4) - 
-       Sfkml_l3l4(1/2, l3, l4))
-  rho4_c <- (Sfkml_l3l4(3/4, l3, l4) - 
-               Sfkml_l3l4(1/4, l3, l4))/rho2_c 
-  
-      
-  rho2_t <- Sfkml_l3l4(1 - u_t, l3, l4) - 
-    Sfkml_l3l4(u_t, l3, l4)  
-  rho3_t <- (Sfkml_l3l4(1/2, l3, l4) - 
-               Sfkml_l3l4(u_t, l3, l4))/
-    (Sfkml_l3l4(1 - u_t, l3, l4) - 
-       Sfkml_l3l4(1/2, l3, l4))
-  rho4_t <- (Sfkml_l3l4(3/4, l3, l4) - 
-               Sfkml_l3l4(1/4, l3, l4))/rho2_t 
-     
-  
-  if ((Sfkml_l3l4(1 - u_c, l3, l4) - Sfkml_l3l4(u_c, l3, l4))<0) 
-    return(10^10)
-  else if ((Sfkml_l3l4(1 - u_t, l3, l4) - Sfkml_l3l4(u_t, l3, l4))<0)  
-    return(10^10)
-  else
-    return(w_c*(rho3.hat_c - rho3_c)^2 + w_c*(rho4.hat_c - rho4_c)^2+
-             w_t*(rho3.hat_t - rho3_t)^2 + w_t*(rho4.hat_t - rho4_t)^2)
-}
 
 ################################################################################
 
@@ -97,44 +57,6 @@ objective_function_gl <- function(par,n,empirical_quantiles) {
   
 }
 
-################################################################################
-
-objective_function_gl_2g <- function(par,n_c,
-                      n_t,emp_quant_c,
-                      emp_quant_t) {
-  
-  l1_c <- par[1]
-  l2_c <- par[2]
-  
-  l1_t <- par[3]
-  l2_t <- par[4]
-  
-  l3 <- par[5]
-  l4 <- par[6]
-  
-  u_c<-0.5/n_c
-  u_t<-0.5/n_t
-  w_c<-n_c/(n_t+n_c)
-  w_t<-n_t/(n_t+n_c)
-  
-  if (l2_c<=0)
-    return(1e10)
-  if (l2_t<=0)
-    return(1e10)
-  
-  thr_quant_c <- qgl(p = c(u_c, 0.25, 0.5, 0.75, 1-u_c),
-                     lambda1 = c(l1_c, l2_c, l3, l4),
-                     param = "fkml")
-
-  thr_quant_t <- qgl(p = c(u_t, 0.25, 0.5, 0.75, 1-u_t),
-                     lambda1 = c(l1_t, l2_t, l3, l4),
-                     param = "fkml")
-  
-  return(w_t*sum((thr_quant_t - emp_quant_t)^2)+ 
-           w_c*sum((thr_quant_c - emp_quant_c)^2))
-  
-  
-}
 
 ################################################################################
 
@@ -159,41 +81,6 @@ objective_function_sl <- function(par,empirical_quantiles) { #n,
 
 ################################################################################
 
-objective_function_sl_2g <- function(par,
-                                     n_c,n_t,
-                                     empirical_quantiles_c,
-                                     empirical_quantiles_t
-) {
-  
-  alpha_c<- par[1] #lambda 
-  beta_c <- par[2] #eta
-  
-  alpha_t<- par[3] #lambda 
-  beta_t <- par[4] #eta
-
-  delta_w <- par[5] #delta
-  
-  if (delta_w<0 | delta_w >1 | beta_c <= 0 | beta_t <= 0)
-    return(1e10)
-  
-  
-  theoretical_quantiles_c <- qsl(p = c(0.25, 0.5, 0.75),
-                                 parameters = c(alpha_c,beta_c, delta_w))
-  
-  theoretical_quantiles_t <- qsl(p = c(0.25, 0.5, 0.75),
-                                 parameters = c(alpha_t,beta_t, delta_w))
-  
-  
-  w_c<-n_c/(n_t+n_c)
-  w_t<-n_t/(n_t+n_c)
-  
-  return(w_t*sum((theoretical_quantiles_t - empirical_quantiles_t)^2)+ 
-           w_c*sum((theoretical_quantiles_c- empirical_quantiles_c)^2))
-  
-}
-
-################################################################################
-
 objective_function_sl_minmax <- function(par,empirical_quantiles,n) { #n,
   
   alpha<- par[1] #lambda 
@@ -212,41 +99,6 @@ objective_function_sl_minmax <- function(par,empirical_quantiles,n) { #n,
   return(sum((theoretical_quantiles - empirical_quantiles)^2))
   
   
-}
-
-
-################################################################################
-
-objective_function_sl_minmax_2g <- function(par,
-                                                 n_c,n_t,
-                                                 empirical_quantiles_c,
-                                                 empirical_quantiles_t
-) { 
-  
-  alpha_c<- par[1] #lambda 
-  beta_c <- par[2] #eta
-  u_c<-0.5/n_c
-  u_t<-0.5/n_t
-  
-  alpha_t<- par[3] #lambda 
-  beta_t <- par[4] #eta
-  
-  delta_w <- par[5] #delta
-  
-  if (delta_w<0 | delta_w >1 | beta_c <= 0 | beta_t <= 0)
-    return(1e10)
-  
-  theoretical_quantiles_c <- qsl(p = c(u_c, 0.5, 1-u_c),
-                                 parameters = c(alpha_c,beta_c, delta_w))
-  
-  theoretical_quantiles_t <- qsl(p = c(u_t, 0.5, 1-u_t),
-                                 parameters = c(alpha_t,beta_t, delta_w))
-  
-  w_c<-n_c/(n_t+n_c)
-  w_t<-n_t/(n_t+n_c)
-  
-  return(w_t*sum((theoretical_quantiles_t - empirical_quantiles_t)^2)+ 
-           w_c*sum((theoretical_quantiles_c- empirical_quantiles_c)^2))
 }
 
 

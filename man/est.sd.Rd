@@ -31,13 +31,13 @@ est.sd(
 \item{method}{character string specifying the approach used to estimate the sample standard deviations. The options are the following:
 \describe{
 \item{\code{'shi/wan'}}{The default option. Method of Shi et al. (2020).}
-\item{\code{'gld/sld'}}{The method proposed by De Livera et al. (2024). Estimation using the Generalized Lambda Distribution (GLD) for 5-number summaries (\eqn{S_3}), and the Skew Logistic Distribution (SLD)  for 3-number summaries (\eqn{S_1} and \eqn{S_2}).}
+\item{\code{'gld/sld'}}{The method proposed by De Livera et al. (2024). Estimation using the generalised lambda distribution (GLD) for 5-number summaries (\eqn{S_3}), and the skew logistic distribution (SLD) for 3-number summaries (\eqn{S_1} and \eqn{S_2}).}
 \item{\code{'wan'}}{The method proposed by Wan et al. (2014).}
 \item{\code{'bc'}}{Box-Cox method proposed by McGrath et al. (2020).}
 \item{\code{'qe'}}{Quantile Matching Estimation method proposed by McGrath et al. (2020).}
 }}
 
-\item{opt}{logical value indicating whether to apply the optimization step of \code{'gld/sld'} method, in estimating their parameters using theoretical quantiles.
+\item{opt}{logical value indicating whether to apply the optimisation step of \code{'gld/sld'} method, in estimating their parameters using theoretical quantiles.
 The default value is \code{TRUE}.}
 }
 \value{

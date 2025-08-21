@@ -31,19 +31,19 @@
 #' @param n numeric value specifying the sample size.
 #' @param method character string specifying the approach used to estimate the sample means. The options are the following:
 #' \describe{
-#'   \item{\code{'gld/sld'}}{The default option. The method proposed by De Livera et al. (2024). Estimation using the Generalized Lambda Distribution (GLD) for 5-number summaries (\eqn{S_3}), and the Skew Logistic Distribution (SLD)  for 3-number summaries (\eqn{S_1} and \eqn{S_2}).}
+#'   \item{\code{'gld/sld'}}{The default option. The method proposed by De Livera et al. (2024). Estimation using the generalised lambda distribution (GLD) for 5-number summaries (\eqn{S_3}), and the skew logistic distribution (SLD)  for 3-number summaries (\eqn{S_1} and \eqn{S_2}).}
 #'   \item{\code{'luo'}}{Method of Luo et al. (2018).}
 #'   \item{\code{'hozo/wan/bland'}}{The method proposed by Wan et al. (2014). i.e., the method of Hozo et al. (2005) for \eqn{S_1}, method of Wan et al. (2014) for \eqn{S_2}, and method of Bland (2015) for \eqn{S_3}.} 
 #'   \item{\code{'bc'}}{Box-Cox method proposed by McGrath et al. (2020).}
 #'   \item{\code{'qe'}}{Quantile Matching Estimation method proposed by McGrath et al. (2020).}
 #' }
-#' @param opt logical value indicating whether to apply the optimization step of \code{'gld/sld'} method, in estimating their parameters using theoretical quantiles. 
+#' @param opt logical value indicating whether to apply the optimisation step of \code{'gld/sld'} method, in estimating their parameters using theoretical quantiles. 
 #'   The default value is \code{TRUE}.
 #' 
 #' @details
 #' The \code{'gld/sld'} method (i.e., the method of De Livera et al., (2024)) of \code{est.mean} uses the following quantile based distributions:
 #' \itemize{
-#'   \item Generalized Lambda Distribution (GLD) for estimating the sample mean using 5-number summaries (\eqn{S_3}).
+#'   \item Generalised Lambda Distribution (GLD) for estimating the sample mean using 5-number summaries (\eqn{S_3}).
 #'   \item Skew Logistic Distribution (SLD) for estimating the sample mean using 3-number summaries (\eqn{S_1} and \eqn{S_2}).
 #' } 
 #' The generalised lambda distribution (GLD) is a four parameter family of distributions defined by its quantile function under the FKML parameterisation (Freimer et al., 1988).
@@ -54,7 +54,7 @@
 #' is used to approximate the sample's distribution using 3-point summaries.
 #' The SLD quantile function is defined using three parameters: a location parameter (\eqn{\lambda}), a scale parameter (\eqn{\eta}), and a skewing parameter (\eqn{\delta}).
 #' 
-#' For \code{'gld/sld'} method, the parameters of the generalized lambda distribution (GLD) and skew logistic distribution (SLD) are estimated 
+#' For \code{'gld/sld'} method, the parameters of the GLD and SLD are estimated 
 #' by formulating and solving a set of simultaneous equations. These equations relate the estimated sample quantiles to their theoretical counterparts
 #' of the respective distribution (GLD or SLD). Finally, the mean for each scenario is calculated by integrating functions of the estimated quantile function.
 #'
@@ -83,13 +83,16 @@
 #'                         n=n, method = "gld/sld")
 #' est_mean_s2
 #'
-#' @references Alysha De Livera, Luke Prendergast, and Udara Kumaranathunga. A novel density-based approach for estimating unknown means, distribution visualisations, and meta-analyses of quantiles. \emph{Submitted for Review}, 2024, pre-print available here: <https://arxiv.org/abs/2411.10971>
-#' @references Dehui Luo, Xiang Wan, Jiming Liu, and Tiejun Tong. Optimally estimating the sample mean from the sample size, median, mid-range, and/or mid-quartile range. \emph{Statistical methods in medical research}, 27(6):1785–1805,2018.
+#' @references Alysha De Livera, Luke Prendergast, and Udara Kumaranathunga. A novel density-based approach for estimating unknown means, distribution visualisations, and meta-analyses of quantiles, 2024. Pre-print available here: <https://arxiv.org/abs/2411.10971>.
+#' @references Dehui Luo, Xiang Wan, Jiming Liu, and Tiejun Tong. Optimally estimating the sample mean from the sample size, median, mid-range, and/or mid-quartile range. \emph{Statistical methods in medical research}, 27(6):1785–1805, 2018.
 #' @references Xiang Wan, Wenqian Wang, Jiming Liu, and Tiejun Tong. Estimating the sample mean and standard deviation from the sample size, median, range and/or interquartile range. \emph{BMC medical research methodology}, 14:1–13, 2014.
 #' @references Sean McGrath, XiaoFei Zhao, Russell Steele, Brett D Thombs, Andrea Benedetti, and DEPRESsion Screening Data (DEPRESSD) Collaboration. Estimating the sample mean and standard deviation from commonly reported quantiles in meta-analysis. \emph{Statistical methods in medical research}, 29(9):2520–2537, 2020b.
 #' @references Marshall Freimer, Georgia Kollia, Govind S Mudholkar, and C Thomas Lin. A study of the generalized tukey lambda family. \emph{Communications in Statistics-Theory and Methods}, 17(10):3547–3567, 1988.
-#' @references Warren Gilchrist. \emph{Statistical modelling with quantile functions}. Chapman and Hall/CRC, 2000.
+#' @references Warren Gilchrist. Statistical modelling with quantile functions. Chapman and Hall/CRC, 2000.
 #' @references P. J. van Staden and R. A. R. King. The quantile-based skew logistic distribution.  \emph{Statistics & Probability Letters}, 96:109–116, 2015.
+#' @references R. King, B. Dean, S. Klinke, and P. van Staden. gld: Estimation and Use of the Generalised (Tukey) Lambda Distribution. R package version 2.6.7, 2025. \doi{10.32614/CRAN.package.gld}. <https://CRAN.R-project.org/package=gld>.
+#' @references R. King and P. van Staden. sld: Estimation and Use of the Quantile-Based Skew Logistic Distribution. R package version 1.0.1, 2022. \doi{10.32614/CRAN.package.sld}. <https://CRAN.R-project.org/package=sld>.
+#' 
 #' @export 
 #' 
 #' @importFrom gld qgl gld.moments
@@ -154,7 +157,7 @@ est.mean <- function(min = NULL,
   } else if (!is.null(min) && !is.null(med) && !is.null(max)) {
     
     if (method == "gld/sld"){
-      glsl_est <- est.density.three1(min=min, med=med, max=max, n=n, opt=opt)
+      glsl_est <- est.density.minq2max(min=min, med=med, max=max, n=n, opt=opt)
       mean_est <- glsl_est$mean
       return(list("mean" = mean_est))
       
@@ -197,7 +200,7 @@ est.mean <- function(min = NULL,
   } else if (!is.null(q1) && !is.null(med) && !is.null(q3)) {
     
     if (method == "gld/sld") {
-      glsl_est <- est.density.three2(q1=q1, med=med, q3=q3, opt=opt)
+      glsl_est <- est.density.q1q2q3(q1=q1, med=med, q3=q3, opt=opt)
       mean_est <- glsl_est$mean
       return(list("mean" = mean_est))
       
@@ -243,6 +246,68 @@ est.mean <- function(min = NULL,
 
 
 
+#' Estimating Unknown Parameters using Five-Number Summary
+#'
+#' @description
+#' This function provide estimates for the parameters of generalised lambda distribution (GLD), the sample mean and the standard deviation using 5-number summary \{minimum, first quartile, median, third quartile, maximum\} from a study with sample size \eqn{n},
+#' using the method explained in De Livera et al. (2024).
+#'
+#' 
+#' @usage est.density.five(
+#'    min = NULL, 
+#'    q1 = NULL, 
+#'    med = NULL, 
+#'    q3 = NULL, 
+#'    max = NULL, 
+#'    n = NULL, 
+#'    opt = TRUE
+#'    )
+#' 
+#' @param min numeric value representing the sample minimum.
+#' @param q1 numeric value representing the first quartile of the sample.
+#' @param med numeric value representing the median of the sample.
+#' @param q3 numeric value representing the third quartile of the sample.
+#' @param max numeric value representing the sample maximum.
+#' @param n numeric value specifying the sample size.
+#' @param opt logical value indicating whether to apply the optimisation step in estimating parameters using theoretical quantiles. 
+#'   The default value is \code{TRUE}.
+#' 
+#' @details
+#' De Livera et al., (2024) proposed using the generalised lambda distribution (GLD) to estimate unknown parameters for studies reporting 5-number summaries in the meta-analysis context.
+#' 
+#' The GLD is a four parameter family of distributions defined by its quantile function under the FKML parameterisation (Freimer et al., 1988).
+#' De Livera et al. propose that the GLD quantlie function can be used to approximate a sample's distribution using 5-point summaries. 
+#' The four parameters of GLD quantile function include: a location parameter (\eqn{\lambda_1}), an inverse scale parameter (\eqn{\lambda_2}>0), and two shape parameters (\eqn{\lambda_3} and \eqn{\lambda_4}).
+#' The parameters of the GLD are estimated by formulating and solving a set of simultaneous equations which relate the estimated sample quantiles to their theoretical counterparts of the GLD. 
+#'
+#' @return 
+#' - \code{parameters}: named numeric vector representing the estimated parameters ('location', 'inverse scale', 'shape 1', 'shape 2') of GLD .
+#' - \code{mean}: numeric value of the estimated mean of the sample using GLD.
+#' - \code{sd}: numeric value of the estimated standard deviation of the sample using GLD.
+#'  
+#' @seealso [est.density.minq2max()], [est.density.q1q2q3()]
+#' 
+#' @examples
+#' #Generate 5-number summary data
+#' set.seed(123)
+#' n <- 1000
+#' x <- stats::rlnorm(n, 4, 0.3)
+#' quants <- c(min(x), stats::quantile(x, probs = c(0.25, 0.5, 0.75)), max(x))
+#' 
+#' #Estimate GLD parameters using 5-number summary
+#' params<- est.density.five(min = quants[1], q1 = quants[2], med = quants[3], q3 = quants[4], 
+#'                           max = quants[5], n=n, opt=TRUE)$parameters
+#' params
+#'
+#' @references Alysha De Livera, Luke Prendergast, and Udara Kumaranathunga. A novel density-based approach for estimating unknown means, distribution visualisations, and meta-analyses of quantiles, 2024. Pre-print available here: <https://arxiv.org/abs/2411.10971>.
+#' @references Marshall Freimer, Georgia Kollia, Govind S Mudholkar, and C Thomas Lin. A study of the generalized tukey lambda family. \emph{Communications in Statistics-Theory and Methods}, 17(10):3547–3567, 1988.
+#' @references Warren Gilchrist. Statistical modelling with quantile functions. Chapman and Hall/CRC, 2000.
+#' @references R. King, B. Dean, S. Klinke, and P. van Staden. gld: Estimation and Use of the Generalised (Tukey) Lambda Distribution. R package version 2.6.7, 2025. \doi{10.32614/CRAN.package.gld}. <https://CRAN.R-project.org/package=gld>.
+#' 
+#' @export 
+#' 
+#' @importFrom gld qgl gld.moments
+#' @importFrom stats integrate optim integrate runif var qnorm
 
 est.density.five <- function(min = NULL, 
                              q1 = NULL, 
@@ -287,13 +352,71 @@ est.density.five <- function(min = NULL,
 }
 
 
-est.density.three1 <- function(min = NULL, 
-                               q1 = NULL, 
-                               med = NULL, 
-                               q3 = NULL, 
-                               max = NULL, 
-                               n = NULL, 
-                               opt = TRUE) {
+
+#' Estimating Unknown Parameters using Minimum, Median and Maximum
+#'
+#' @description
+#' This function provide estimates for the parameters of skew logistic distribution (SLD), the sample mean and the standard deviation using 3-number summary \{minimum, median (\eqn{q_2}), maximum\} from a study with sample size \eqn{n},
+#' using the method explained in De Livera et al. (2024).
+#'
+#' 
+#' @usage est.density.minq2max(
+#'    min = NULL, 
+#'    med = NULL, 
+#'    max = NULL, 
+#'    n = NULL, 
+#'    opt = TRUE
+#'    )
+#' 
+#' @param min numeric value representing the sample minimum.
+#' @param med numeric value representing the median of the sample.
+#' @param max numeric value representing the sample maximum.
+#' @param n numeric value specifying the sample size.
+#' @param opt logical value indicating whether to apply the optimisation step in estimating parameters using theoretical quantiles. 
+#'   The default value is \code{TRUE}.
+#' 
+#' @details
+#' De Livera et al., (2024) proposed using the skew logistic distribution (SLD) to estimate unknown parameters for studies reporting 3-number summaries in the meta-analysis context.
+#' 
+#' The quantile-based skew logistic distribution, introduced by Gilchrist (2000) and further modified by van Staden and King (2015) 
+#' is used to approximate the sample's distribution using 3-point summaries.
+#' The SLD quantile function is defined using three parameters: a location parameter (\eqn{\lambda}), a scale parameter (\eqn{\eta}), and a skewing parameter (\eqn{\delta}).
+#' The parameters of the SLD are estimated by formulating and solving a set of simultaneous equations which relate the estimated sample quantiles to their theoretical counterparts of the SLD. 
+#'
+#' @return 
+#' - \code{parameters}: named numeric vector representing the estimated parameters ('location', 'scale', 'skewing') of SLD.
+#' - \code{mean}: numeric value of the estimated mean of the sample using SLD.
+#' - \code{sd}: numeric value of the estimated standard deviation of the sample using SLD.
+#'
+#' @seealso [est.density.five()], [est.density.q1q2q3()]
+#' 
+#' @examples
+#' #Generate 3-number summary data
+#' set.seed(123)
+#' n <- 1000
+#' x <- stats::rlnorm(n, 4, 0.3)
+#' quants <- c(min(x), stats::quantile(x, probs = 0.5), max(x))
+#' 
+#' #Estimate SLD parameters using 3-number summary
+#' params <- est.density.minq2max(min = quants[1], med = quants[2], max = quants[3], 
+#'                                n=n, opt=TRUE)$parameters
+#' params
+#'
+#' @references Alysha De Livera, Luke Prendergast, and Udara Kumaranathunga. A novel density-based approach for estimating unknown means, distribution visualisations, and meta-analyses of quantiles, 2024. Pre-print available here: <https://arxiv.org/abs/2411.10971>.
+#' @references Warren Gilchrist. Statistical modelling with quantile functions. Chapman and Hall/CRC, 2000.
+#' @references P. J. van Staden and R. A. R. King. The quantile-based skew logistic distribution.  \emph{Statistics & Probability Letters}, 96:109–116, 2015.
+#' @references R. King and P. van Staden. sld: Estimation and Use of the Quantile-Based Skew Logistic Distribution. R package version 1.0.1, 2022. \doi{10.32614/CRAN.package.sld}. <https://CRAN.R-project.org/package=sld>.
+#' 
+#' @export 
+#' 
+#' @importFrom sld qsl
+ 
+
+est.density.minq2max <- function(min = NULL, 
+                                 med = NULL, 
+                                 max = NULL, 
+                                 n = NULL, 
+                                 opt = TRUE) {
   a <- min
   m <- med
   b <- max
@@ -323,12 +446,67 @@ est.density.three1 <- function(min = NULL,
 }
 
 
+#' Estimating Unknown Parameters using First Quartile, Median and Third Quartile
+#'
+#' @description
+#' This function provide estimates for the parameters of skew logistic distribution (SLD), the sample mean and the standard deviation using 3-number summary \{first quartile (\eqn{q_1}), median (\eqn{q_2}), third quartile (\eqn{q_3})\} from a study with sample size \eqn{n},
+#' using the method explained in De Livera et al. (2024).
+#'
+#' 
+#' @usage est.density.q1q2q3(
+#'    q1 = NULL, 
+#'    med = NULL, 
+#'    q3 = NULL, 
+#'    n = NULL, 
+#'    opt = TRUE
+#'    )
+#' 
+#' @param q1 numeric value representing the first quartile of the sample.
+#' @param med numeric value representing the median of the sample.
+#' @param q3 numeric value representing the third quartile of the sample.
+#' @param n numeric value specifying the sample size.
+#' @param opt logical value indicating whether to apply the optimisation step in estimating parameters using theoretical quantiles. 
+#'   The default value is \code{TRUE}.
+#' 
+#' @details
+#' De Livera et al., (2024) proposed using the skew logistic distribution (SLD) to estimate unknown parameters for studies reporting 3-number summaries in the meta-analysis context.
+#' 
+#' The quantile-based skew logistic distribution, introduced by Gilchrist (2000) and further modified by van Staden and King (2015) 
+#' is used to approximate the sample's distribution using 3-point summaries.
+#' The SLD quantile function is defined using three parameters: a location parameter (\eqn{\lambda}), a scale parameter (\eqn{\eta}), and a skewing parameter (\eqn{\delta}).
+#' The parameters of the SLD are estimated by formulating and solving a set of simultaneous equations which relate the estimated sample quantiles to their theoretical counterparts of the SLD. 
+#'
+#' @return 
+#' - \code{parameters}: named numeric vector representing the estimated parameters ('location', 'scale', 'skewing') of SLD.
+#' - \code{mean}: numeric value of the estimated mean of the sample using SLD.
+#' - \code{sd}: numeric value of the estimated standard deviation of the sample using SLD.
+#'
+#' @seealso [est.density.five()], [est.density.minq2max()]
+#' 
+#' @examples
+#' #Generate 3-number summary data
+#' set.seed(123)
+#' n <- 1000
+#' x <- stats::rlnorm(n, 4, 0.3)
+#' quants <- c(stats::quantile(x, probs = c(0.25, 0.5, 0.75)))
+#' 
+#' #Estimate SLD parameters using 3-number summary
+#' params<- est.density.q1q2q3(q1 = quants[1], med = quants[2], q3 = quants[3], 
+#'                             n=n, opt=TRUE)$parameters
+#' params
+#'
+#' @references Alysha De Livera, Luke Prendergast, and Udara Kumaranathunga. A novel density-based approach for estimating unknown means, distribution visualisations, and meta-analyses of quantiles, 2024. Pre-print available here: <https://arxiv.org/abs/2411.10971>.
+#' @references Warren Gilchrist. Statistical modelling with quantile functions. Chapman and Hall/CRC, 2000.
+#' @references P. J. van Staden and R. A. R. King. The quantile-based skew logistic distribution.  \emph{Statistics & Probability Letters}, 96:109–116, 2015.
+#' @references R. King and P. van Staden. sld: Estimation and Use of the Quantile-Based Skew Logistic Distribution. R package version 1.0.1, 2022. \doi{10.32614/CRAN.package.sld}. <https://CRAN.R-project.org/package=sld>.
+#' 
+#' @export 
+#' 
+#' @importFrom sld qsl
 
-est.density.three2 <- function(min = NULL, 
-                               q1 = NULL, 
+est.density.q1q2q3 <- function(q1 = NULL, 
                                med = NULL, 
                                q3 = NULL, 
-                               max = NULL, 
                                n = NULL, 
                                opt = TRUE) {
   

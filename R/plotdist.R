@@ -10,7 +10,7 @@
 #'
 #' The \code{plotdist} function uses the following quantile-based distribution methods for visualising densities using qantiles (De Livera et al., 2024). 
 #' \itemize{
-#'   \item Generalized Lambda Distribution (GLD) when 5-number summaries present (\eqn{S_3}).
+#'   \item Generalised Lambda Distribution (GLD) when 5-number summaries present (\eqn{S_3}).
 #'   \item Skew Logistic Distribution (SLD) when 3-number summaries present (\eqn{S_1} and \eqn{S_2}).
 #' } 
 #' 
@@ -380,12 +380,12 @@ get.density <- function(data, gi, summary_type, group_label, xmin, xmax, length.
                     lambda3 = dens_out$parameters[3], lambda4 = dens_out$parameters[4])
     } else if (summary_type == "min-med-max") {
       q <- as.numeric(data[i, c(paste0("min.", gi), paste0("med.", gi), paste0("max.", gi))])
-      dens_out <- est.density.three1(min = q[1], med = q[2], max = q[3], n = n, opt = opt)
+      dens_out <- est.density.minq2max(min = q[1], med = q[2], max = q[3], n = n, opt = opt)
       x_vals <- seq(xmin, xmax, length.out = length.out)
       y_vals <- dsl(x_vals, dens_out$parameters)
     } else if (summary_type == "q1-med-q3") {
       q <- as.numeric(data[i, c(paste0("q1.", gi), paste0("med.", gi), paste0("q3.", gi))])
-      dens_out <- est.density.three2(q1 = q[1], med = q[2], q3 = q[3], n = n, opt = opt)
+      dens_out <- est.density.q1q2q3(q1 = q[1], med = q[2], q3 = q[3], n = n, opt = opt)
       x_vals <- seq(xmin, xmax, length.out = length.out)
       y_vals <- dsl(x_vals, dens_out$parameters)
     }
@@ -435,13 +435,13 @@ get.pooled.density <- function(data, gi, summary_type, group_label, xmin, xmax, 
         data$l4[i] <- dens_out$parameters[4]
     } else if(summary_type == "min-med-max"){
         q <- as.numeric(data[i, c(paste0("min.", gi), paste0("med.", gi), paste0("max.", gi))])
-        dens_out <- est.density.three1(min = q[1], med = q[2], max = q[3], n = n, opt = opt)
+        dens_out <- est.density.minq2max(min = q[1], med = q[2], max = q[3], n = n, opt = opt)
         data$lambda[i] <- dens_out$parameters[1]
         data$eta[i] <- dens_out$parameters[2]
         data$delta[i] <- dens_out$parameters[3]
     } else if(summary_type == "q1-med-q3"){
         q <- as.numeric(data[i, c(paste0("q1.", gi), paste0("med.", gi), paste0("q3.", gi))])
-        dens_out <- est.density.three2(q1 = q[1], med = q[2], q3 = q[3], n = n, opt = opt)
+        dens_out <- est.density.q1q2q3(q1 = q[1], med = q[2], q3 = q[3], n = n, opt = opt)
         data$lambda[i] <- dens_out$parameters[1]
         data$eta[i] <- dens_out$parameters[2]
         data$delta[i] <- dens_out$parameters[3]

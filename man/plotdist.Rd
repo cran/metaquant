@@ -101,7 +101,7 @@ The function estimates and visualizes the density curves of one-group or two-gro
 
 The \code{plotdist} function uses the following quantile-based distribution methods for visualising densities using qantiles (De Livera et al., 2024).
 \itemize{
-\item Generalized Lambda Distribution (GLD) when 5-number summaries present (\eqn{S_3}).
+\item Generalised Lambda Distribution (GLD) when 5-number summaries present (\eqn{S_3}).
 \item Skew Logistic Distribution (SLD) when 3-number summaries present (\eqn{S_1} and \eqn{S_2}).
 }
 }

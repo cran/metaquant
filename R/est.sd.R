@@ -32,12 +32,12 @@
 #' @param method character string specifying the approach used to estimate the sample standard deviations. The options are the following:
 #' \describe{
 #'   \item{\code{'shi/wan'}}{The default option. Method of Shi et al. (2020).}
-#'   \item{\code{'gld/sld'}}{The method proposed by De Livera et al. (2024). Estimation using the Generalized Lambda Distribution (GLD) for 5-number summaries (\eqn{S_3}), and the Skew Logistic Distribution (SLD)  for 3-number summaries (\eqn{S_1} and \eqn{S_2}).}
+#'   \item{\code{'gld/sld'}}{The method proposed by De Livera et al. (2024). Estimation using the generalised lambda distribution (GLD) for 5-number summaries (\eqn{S_3}), and the skew logistic distribution (SLD) for 3-number summaries (\eqn{S_1} and \eqn{S_2}).}
 #'   \item{\code{'wan'}}{The method proposed by Wan et al. (2014).} 
 #'   \item{\code{'bc'}}{Box-Cox method proposed by McGrath et al. (2020).}
 #'   \item{\code{'qe'}}{Quantile Matching Estimation method proposed by McGrath et al. (2020).}
 #' }
-#' @param opt logical value indicating whether to apply the optimization step of \code{'gld/sld'} method, in estimating their parameters using theoretical quantiles. 
+#' @param opt logical value indicating whether to apply the optimisation step of \code{'gld/sld'} method, in estimating their parameters using theoretical quantiles. 
 #'   The default value is \code{TRUE}.
 #' 
 #' @details
@@ -132,7 +132,7 @@ est.sd <- function(min = NULL,
   } else if (!is.null(min) && !is.null(med) && !is.null(max)) {
     
     if (method == "gld/sld") {
-      glsl_est <- est.density.three1(min=min, med=med, max=max, n=n, opt=opt)
+      glsl_est <- est.density.minq2max(min=min, med=med, max=max, n=n, opt=opt)
       sd_est <- glsl_est$sd
       return(list("sd" = sd_est))
       
@@ -176,7 +176,7 @@ est.sd <- function(min = NULL,
   } else if (!is.null(q1) && !is.null(med) && !is.null(q3)) {
     
     if (method == "gld/sld") {
-      glsl_est <- est.density.three2(q1=q1, med=med, q3=q3, opt=opt)
+      glsl_est <- est.density.q1q2q3(q1=q1, med=med, q3=q3, opt=opt)
       sd_est <- glsl_est$sd
       return(list("sd" = sd_est))
       

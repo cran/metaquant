@@ -30,14 +30,14 @@ est.mean(
 
 \item{method}{character string specifying the approach used to estimate the sample means. The options are the following:
 \describe{
-\item{\code{'gld/sld'}}{The default option. The method proposed by De Livera et al. (2024). Estimation using the Generalized Lambda Distribution (GLD) for 5-number summaries (\eqn{S_3}), and the Skew Logistic Distribution (SLD)  for 3-number summaries (\eqn{S_1} and \eqn{S_2}).}
+\item{\code{'gld/sld'}}{The default option. The method proposed by De Livera et al. (2024). Estimation using the generalised lambda distribution (GLD) for 5-number summaries (\eqn{S_3}), and the skew logistic distribution (SLD)  for 3-number summaries (\eqn{S_1} and \eqn{S_2}).}
 \item{\code{'luo'}}{Method of Luo et al. (2018).}
 \item{\code{'hozo/wan/bland'}}{The method proposed by Wan et al. (2014). i.e., the method of Hozo et al. (2005) for \eqn{S_1}, method of Wan et al. (2014) for \eqn{S_2}, and method of Bland (2015) for \eqn{S_3}.}
 \item{\code{'bc'}}{Box-Cox method proposed by McGrath et al. (2020).}
 \item{\code{'qe'}}{Quantile Matching Estimation method proposed by McGrath et al. (2020).}
 }}
 
-\item{opt}{logical value indicating whether to apply the optimization step of \code{'gld/sld'} method, in estimating their parameters using theoretical quantiles.
+\item{opt}{logical value indicating whether to apply the optimisation step of \code{'gld/sld'} method, in estimating their parameters using theoretical quantiles.
 The default value is \code{TRUE}.}
 }
 \value{
@@ -57,7 +57,7 @@ It also incorporates existing methods for estimating sample means as described b
 \details{
 The \code{'gld/sld'} method (i.e., the method of De Livera et al., (2024)) of \code{est.mean} uses the following quantile based distributions:
 \itemize{
-\item Generalized Lambda Distribution (GLD) for estimating the sample mean using 5-number summaries (\eqn{S_3}).
+\item Generalised Lambda Distribution (GLD) for estimating the sample mean using 5-number summaries (\eqn{S_3}).
 \item Skew Logistic Distribution (SLD) for estimating the sample mean using 3-number summaries (\eqn{S_1} and \eqn{S_2}).
 }
 The generalised lambda distribution (GLD) is a four parameter family of distributions defined by its quantile function under the FKML parameterisation (Freimer et al., 1988).
@@ -68,7 +68,7 @@ The quantile-based skew logistic distribution (SLD), introduced by Gilchrist (20
 is used to approximate the sample's distribution using 3-point summaries.
 The SLD quantile function is defined using three parameters: a location parameter (\eqn{\lambda}), a scale parameter (\eqn{\eta}), and a skewing parameter (\eqn{\delta}).
 
-For \code{'gld/sld'} method, the parameters of the generalized lambda distribution (GLD) and skew logistic distribution (SLD) are estimated
+For \code{'gld/sld'} method, the parameters of the GLD and SLD are estimated
 by formulating and solving a set of simultaneous equations. These equations relate the estimated sample quantiles to their theoretical counterparts
 of the respective distribution (GLD or SLD). Finally, the mean for each scenario is calculated by integrating functions of the estimated quantile function.
 }
@@ -97,9 +97,9 @@ est_mean_s2
 
 }
 \references{
-Alysha De Livera, Luke Prendergast, and Udara Kumaranathunga. A novel density-based approach for estimating unknown means, distribution visualisations, and meta-analyses of quantiles. \emph{Submitted for Review}, 2024, pre-print available here: \url{https://arxiv.org/abs/2411.10971}
+Alysha De Livera, Luke Prendergast, and Udara Kumaranathunga. A novel density-based approach for estimating unknown means, distribution visualisations, and meta-analyses of quantiles, 2024. Pre-print available here: \url{https://arxiv.org/abs/2411.10971}.
 
-Dehui Luo, Xiang Wan, Jiming Liu, and Tiejun Tong. Optimally estimating the sample mean from the sample size, median, mid-range, and/or mid-quartile range. \emph{Statistical methods in medical research}, 27(6):1785–1805,2018.
+Dehui Luo, Xiang Wan, Jiming Liu, and Tiejun Tong. Optimally estimating the sample mean from the sample size, median, mid-range, and/or mid-quartile range. \emph{Statistical methods in medical research}, 27(6):1785–1805, 2018.
 
 Xiang Wan, Wenqian Wang, Jiming Liu, and Tiejun Tong. Estimating the sample mean and standard deviation from the sample size, median, range and/or interquartile range. \emph{BMC medical research methodology}, 14:1–13, 2014.
 
@@ -107,7 +107,11 @@ Sean McGrath, XiaoFei Zhao, Russell Steele, Brett D Thombs, Andrea Benedetti, an
 
 Marshall Freimer, Georgia Kollia, Govind S Mudholkar, and C Thomas Lin. A study of the generalized tukey lambda family. \emph{Communications in Statistics-Theory and Methods}, 17(10):3547–3567, 1988.
 
-Warren Gilchrist. \emph{Statistical modelling with quantile functions}. Chapman and Hall/CRC, 2000.
+Warren Gilchrist. Statistical modelling with quantile functions. Chapman and Hall/CRC, 2000.
 
 P. J. van Staden and R. A. R. King. The quantile-based skew logistic distribution.  \emph{Statistics & Probability Letters}, 96:109–116, 2015.
+
+R. King, B. Dean, S. Klinke, and P. van Staden. gld: Estimation and Use of the Generalised (Tukey) Lambda Distribution. R package version 2.6.7, 2025. \doi{10.32614/CRAN.package.gld}. \url{https://CRAN.R-project.org/package=gld}.
+
+R. King and P. van Staden. sld: Estimation and Use of the Quantile-Based Skew Logistic Distribution. R package version 1.0.1, 2022. \doi{10.32614/CRAN.package.sld}. \url{https://CRAN.R-project.org/package=sld}.
 }
