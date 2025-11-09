@@ -83,11 +83,11 @@ est_sd_s2
 
 }
 \references{
-Alysha De Livera, Luke Prendergast, and Udara Kumaranathunga. A novel density-based approach for estimating unknown means, distribution visualisations, and meta-analyses of quantiles. \emph{Submitted for Review}, 2024, pre-print available here: \url{https://arxiv.org/abs/2411.10971}
+De Livera, A. M., Prendergast, L., & Kumaranathunga, U. (2024). A novel density-based approach for estimating unknown means, distribution visualisations and meta-analyses of quantiles. \emph{arXiv preprint arXiv:2411.10971}. \url{https://arxiv.org/abs/2411.10971}.
 
-Jiandong Shi, Dehui Luo, Hong Weng, Xian-Tao Zeng, Lu Lin, Haitao Chu, and Tiejun Tong. Optimally estimating the sample standard deviation from the five-number summary. \emph{Research synthesis methods}, 11(5):641–654, 2020.
+Shi, J., Luo, D., Weng, H., Zeng, X.-T., Lin, L., Chu, H., & Tong, T. (2020). Optimally estimating the sample standard deviation from the five-number summary. \emph{Research Synthesis Methods, 11}(5), 641–654.
 
-Xiang Wan, Wenqian Wang, Jiming Liu, and Tiejun Tong. Estimating the sample mean and standard deviation from the sample size, median, range and/or interquartile range. \emph{BMC medical research methodology}, 14:1–13, 2014.
+Wan, X., Wang, W., Liu, J., & Tong, T. (2014). Estimating the sample mean and standard deviation from the sample size, median, range and/or interquartile range. \emph{BMC Medical Research Methodology, 14}, 1–13.
 
-Sean McGrath, XiaoFei Zhao, Russell Steele, Brett D Thombs, Andrea Benedetti, and DEPRESsion Screening Data (DEPRESSD) Collaboration. Estimating the sample mean and standard deviation from commonly reported quantiles in meta-analysis. \emph{Statistical methods in medical research}, 29(9):2520–2537, 2020b.
+McGrath, S., Zhao, X., Steele, R., Thombs, B. D., Benedetti, A., & the DEPRESSD Collaboration. (2020b). Estimating the sample mean and standard deviation from commonly reported quantiles in meta-analysis. \emph{Statistical Methods in Medical Research, 29}(9), 2520–2537.
 }

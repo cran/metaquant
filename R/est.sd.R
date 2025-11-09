@@ -69,10 +69,10 @@
 #' est_sd_s2
 #'
 #' 
-#' @references Alysha De Livera, Luke Prendergast, and Udara Kumaranathunga. A novel density-based approach for estimating unknown means, distribution visualisations, and meta-analyses of quantiles. \emph{Submitted for Review}, 2024, pre-print available here: <https://arxiv.org/abs/2411.10971>
-#' @references Jiandong Shi, Dehui Luo, Hong Weng, Xian-Tao Zeng, Lu Lin, Haitao Chu, and Tiejun Tong. Optimally estimating the sample standard deviation from the five-number summary. \emph{Research synthesis methods}, 11(5):641–654, 2020.
-#' @references Xiang Wan, Wenqian Wang, Jiming Liu, and Tiejun Tong. Estimating the sample mean and standard deviation from the sample size, median, range and/or interquartile range. \emph{BMC medical research methodology}, 14:1–13, 2014.
-#' @references Sean McGrath, XiaoFei Zhao, Russell Steele, Brett D Thombs, Andrea Benedetti, and DEPRESsion Screening Data (DEPRESSD) Collaboration. Estimating the sample mean and standard deviation from commonly reported quantiles in meta-analysis. \emph{Statistical methods in medical research}, 29(9):2520–2537, 2020b.
+#' @references De Livera, A. M., Prendergast, L., & Kumaranathunga, U. (2024). A novel density-based approach for estimating unknown means, distribution visualisations and meta-analyses of quantiles. \emph{arXiv preprint arXiv:2411.10971}. <https://arxiv.org/abs/2411.10971>.
+#' @references Shi, J., Luo, D., Weng, H., Zeng, X.-T., Lin, L., Chu, H., & Tong, T. (2020). Optimally estimating the sample standard deviation from the five-number summary. \emph{Research Synthesis Methods, 11}(5), 641–654.
+#' @references Wan, X., Wang, W., Liu, J., & Tong, T. (2014). Estimating the sample mean and standard deviation from the sample size, median, range and/or interquartile range. \emph{BMC Medical Research Methodology, 14}, 1–13.
+#' @references McGrath, S., Zhao, X., Steele, R., Thombs, B. D., Benedetti, A., & the DEPRESSD Collaboration. (2020b). Estimating the sample mean and standard deviation from commonly reported quantiles in meta-analysis. \emph{Statistical Methods in Medical Research, 29}(9), 2520–2537.
 #' @export 
 
 
@@ -89,7 +89,7 @@ est.sd <- function(min = NULL,
   if (!is.null(min) && !is.null(q1) && !is.null(med) && !is.null(q3) && !is.null(max)) {
     
     if (method == "gld/sld") {
-      glsl_est <- est.density.five(min, q1, med, q3, max, n, opt)
+      glsl_est <- est.gld.five(min, q1, med, q3, max, n, opt)
       sd_est <- glsl_est$sd
       return(list("sd" = sd_est))
       
@@ -109,7 +109,7 @@ est.sd <- function(min = NULL,
         add <- 0
       }
       q_bc <- c(min, q1, med, q3, max) + add
-      sd_est_bc <- bc.mean.sd(min.val = q_bc[1], q1.val = q_bc[2], med.val = q_bc[3], q3.val = q_bc[4], max.val = q_bc[5], n = n)
+      sd_est_bc <- estmeansd::bc.mean.sd(min.val = q_bc[1], q1.val = q_bc[2], med.val = q_bc[3], q3.val = q_bc[4], max.val = q_bc[5], n = n)
       sd_est <- sd_est_bc$est.sd
       return(list("sd" = sd_est))
       
@@ -120,7 +120,7 @@ est.sd <- function(min = NULL,
         add <- 0
       }
       q_qe <- c(min, q1, med, q3, max) + add
-      sd_est_qe <- qe.mean.sd(min.val = q_qe[1], q1.val = q_qe[2], med.val = q_qe[3], q3.val = q_qe[4], max.val = q_qe[5], n = n)
+      sd_est_qe <- estmeansd::qe.mean.sd(min.val = q_qe[1], q1.val = q_qe[2], med.val = q_qe[3], q3.val = q_qe[4], max.val = q_qe[5], n = n)
       sd_est <- sd_est_qe$est.sd
       return(list("sd" = sd_est))
       
@@ -132,7 +132,7 @@ est.sd <- function(min = NULL,
   } else if (!is.null(min) && !is.null(med) && !is.null(max)) {
     
     if (method == "gld/sld") {
-      glsl_est <- est.density.minq2max(min=min, med=med, max=max, n=n, opt=opt)
+      glsl_est <- est.sld.minq2max(min=min, med=med, max=max, n=n, opt=opt)
       sd_est <- glsl_est$sd
       return(list("sd" = sd_est))
       
@@ -153,7 +153,7 @@ est.sd <- function(min = NULL,
         add <- 0
       }
       q_bc <- c(min, med, max) + add
-      sd_est_bc <- bc.mean.sd(min.val = q_bc[1], med.val = q_bc[2], max.val = q_bc[3], n = n)
+      sd_est_bc <- estmeansd::bc.mean.sd(min.val = q_bc[1], med.val = q_bc[2], max.val = q_bc[3], n = n)
       sd_est <- sd_est_bc$est.sd
       return(list("sd" = sd_est))
       
@@ -164,7 +164,7 @@ est.sd <- function(min = NULL,
         add <- 0
       }
       q_qe <- c(min, med, max) + add
-      sd_est_qe <- qe.mean.sd(min.val = q_qe[1], med.val = q_qe[2], max.val = q_qe[3], n = n)
+      sd_est_qe <- estmeansd::qe.mean.sd(min.val = q_qe[1], med.val = q_qe[2], max.val = q_qe[3], n = n)
       sd_est <- sd_est_qe$est.sd
       return(list("sd" = sd_est))
       
@@ -176,7 +176,7 @@ est.sd <- function(min = NULL,
   } else if (!is.null(q1) && !is.null(med) && !is.null(q3)) {
     
     if (method == "gld/sld") {
-      glsl_est <- est.density.q1q2q3(q1=q1, med=med, q3=q3, opt=opt)
+      glsl_est <- est.sld.q1q2q3(q1=q1, med=med, q3=q3, opt=opt)
       sd_est <- glsl_est$sd
       return(list("sd" = sd_est))
       
@@ -197,7 +197,7 @@ est.sd <- function(min = NULL,
         add <- 0
       }
       q_bc <- c(q1, med, q3) + add
-      sd_est_bc <- bc.mean.sd(q1.val = q_bc[1], med.val = q_bc[2], q3.val = q_bc[3], n = n)
+      sd_est_bc <- estmeansd::bc.mean.sd(q1.val = q_bc[1], med.val = q_bc[2], q3.val = q_bc[3], n = n)
       sd_est <- sd_est_bc$est.sd
       return(list("sd" = sd_est))
       
@@ -208,7 +208,7 @@ est.sd <- function(min = NULL,
         add <- 0
       }
       q_qe <- c(q1, med, q3) + add
-      sd_est_qe <- qe.mean.sd(q1.val = q_qe[1], med.val = q_qe[2], q3.val = q_qe[3], n = n)
+      sd_est_qe <- estmeansd::qe.mean.sd(q1.val = q_qe[1], med.val = q_qe[2], q3.val = q_qe[3], n = n)
       sd_est <- sd_est_qe$est.sd
       return(list("sd" = sd_est))
       

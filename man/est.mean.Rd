@@ -97,21 +97,21 @@ est_mean_s2
 
 }
 \references{
-Alysha De Livera, Luke Prendergast, and Udara Kumaranathunga. A novel density-based approach for estimating unknown means, distribution visualisations, and meta-analyses of quantiles, 2024. Pre-print available here: \url{https://arxiv.org/abs/2411.10971}.
+De Livera, A. M., Prendergast, L., & Kumaranathunga, U. (2024). A novel density-based approach for estimating unknown means, distribution visualisations and meta-analyses of quantiles. \emph{arXiv preprint arXiv:2411.10971}. \url{https://arxiv.org/abs/2411.10971}.
 
-Dehui Luo, Xiang Wan, Jiming Liu, and Tiejun Tong. Optimally estimating the sample mean from the sample size, median, mid-range, and/or mid-quartile range. \emph{Statistical methods in medical research}, 27(6):1785–1805, 2018.
+Luo, D., Wan, X., Liu, J., & Tong, T. (2018). Optimally estimating the sample mean from the sample size, median, mid-range, and/or mid-quartile range. \emph{Statistical methods in medical research}, 27(6), 1785-1805.
 
-Xiang Wan, Wenqian Wang, Jiming Liu, and Tiejun Tong. Estimating the sample mean and standard deviation from the sample size, median, range and/or interquartile range. \emph{BMC medical research methodology}, 14:1–13, 2014.
+Wan, X., Wang, W., Liu, J., & Tong, T. (2014). Estimating the sample mean and standard deviation from the sample size, median, range and/or interquartile range. \emph{BMC Medical Research Methodology, 14}, 1–13.
 
-Sean McGrath, XiaoFei Zhao, Russell Steele, Brett D Thombs, Andrea Benedetti, and DEPRESsion Screening Data (DEPRESSD) Collaboration. Estimating the sample mean and standard deviation from commonly reported quantiles in meta-analysis. \emph{Statistical methods in medical research}, 29(9):2520–2537, 2020b.
+McGrath, S., Zhao, X., Steele, R., Thombs, B. D., Benedetti, A., & the DEPRESSD Collaboration. (2020b). Estimating the sample mean and standard deviation from commonly reported quantiles in meta-analysis. \emph{Statistical Methods in Medical Research, 29}(9), 2520–2537.
 
-Marshall Freimer, Georgia Kollia, Govind S Mudholkar, and C Thomas Lin. A study of the generalized tukey lambda family. \emph{Communications in Statistics-Theory and Methods}, 17(10):3547–3567, 1988.
+Freimer, M., Kollia, G., Mudholkar, G. S., & Lin, C. T. (1988). A study of the generalized Tukey lambda family. \emph{Communications in Statistics—Theory and Methods, 17}(10), 3547–3567.
 
-Warren Gilchrist. Statistical modelling with quantile functions. Chapman and Hall/CRC, 2000.
+Gilchrist, W. (2000). \emph{Statistical modelling with quantile functions}. Chapman & Hall/CRC.
 
-P. J. van Staden and R. A. R. King. The quantile-based skew logistic distribution.  \emph{Statistics & Probability Letters}, 96:109–116, 2015.
+van Staden, P. J., & King, R. A. R. (2015). The quantile-based skew logistic distribution. \emph{Statistics & Probability Letters, 96}, 109–116.
 
-R. King, B. Dean, S. Klinke, and P. van Staden. gld: Estimation and Use of the Generalised (Tukey) Lambda Distribution. R package version 2.6.7, 2025. \doi{10.32614/CRAN.package.gld}. \url{https://CRAN.R-project.org/package=gld}.
+King, R., Dean, B., Klinke, S., & van Staden, P. (2025). gld: Estimation and use of the Generalised (Tukey) Lambda Distribution (R package Version 2.6.7). Comprehensive R Archive Network (CRAN). https://doi.org/10.32614/CRAN.package.gld. \url{https://CRAN.R-project.org/package=gld}.
 
-R. King and P. van Staden. sld: Estimation and Use of the Quantile-Based Skew Logistic Distribution. R package version 1.0.1, 2022. \doi{10.32614/CRAN.package.sld}. \url{https://CRAN.R-project.org/package=sld}.
+King, R., & van Staden, P. (2022). sld: Estimation and use of the Quantile-Based Skew Logistic Distribution (R package Version 1.0.1). Comprehensive R Archive Network (CRAN). https://doi.org/10.32614/CRAN.package.sld. \url{https://CRAN.R-project.org/package=sld}.
 }

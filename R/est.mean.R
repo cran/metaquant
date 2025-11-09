@@ -83,16 +83,15 @@
 #'                         n=n, method = "gld/sld")
 #' est_mean_s2
 #'
-#' @references Alysha De Livera, Luke Prendergast, and Udara Kumaranathunga. A novel density-based approach for estimating unknown means, distribution visualisations, and meta-analyses of quantiles, 2024. Pre-print available here: <https://arxiv.org/abs/2411.10971>.
-#' @references Dehui Luo, Xiang Wan, Jiming Liu, and Tiejun Tong. Optimally estimating the sample mean from the sample size, median, mid-range, and/or mid-quartile range. \emph{Statistical methods in medical research}, 27(6):1785–1805, 2018.
-#' @references Xiang Wan, Wenqian Wang, Jiming Liu, and Tiejun Tong. Estimating the sample mean and standard deviation from the sample size, median, range and/or interquartile range. \emph{BMC medical research methodology}, 14:1–13, 2014.
-#' @references Sean McGrath, XiaoFei Zhao, Russell Steele, Brett D Thombs, Andrea Benedetti, and DEPRESsion Screening Data (DEPRESSD) Collaboration. Estimating the sample mean and standard deviation from commonly reported quantiles in meta-analysis. \emph{Statistical methods in medical research}, 29(9):2520–2537, 2020b.
-#' @references Marshall Freimer, Georgia Kollia, Govind S Mudholkar, and C Thomas Lin. A study of the generalized tukey lambda family. \emph{Communications in Statistics-Theory and Methods}, 17(10):3547–3567, 1988.
-#' @references Warren Gilchrist. Statistical modelling with quantile functions. Chapman and Hall/CRC, 2000.
-#' @references P. J. van Staden and R. A. R. King. The quantile-based skew logistic distribution.  \emph{Statistics & Probability Letters}, 96:109–116, 2015.
-#' @references R. King, B. Dean, S. Klinke, and P. van Staden. gld: Estimation and Use of the Generalised (Tukey) Lambda Distribution. R package version 2.6.7, 2025. \doi{10.32614/CRAN.package.gld}. <https://CRAN.R-project.org/package=gld>.
-#' @references R. King and P. van Staden. sld: Estimation and Use of the Quantile-Based Skew Logistic Distribution. R package version 1.0.1, 2022. \doi{10.32614/CRAN.package.sld}. <https://CRAN.R-project.org/package=sld>.
-#' 
+#' @references De Livera, A. M., Prendergast, L., & Kumaranathunga, U. (2024). A novel density-based approach for estimating unknown means, distribution visualisations and meta-analyses of quantiles. \emph{arXiv preprint arXiv:2411.10971}. <https://arxiv.org/abs/2411.10971>.
+#' @references Luo, D., Wan, X., Liu, J., & Tong, T. (2018). Optimally estimating the sample mean from the sample size, median, mid-range, and/or mid-quartile range. \emph{Statistical methods in medical research}, 27(6), 1785-1805.
+#' @references Wan, X., Wang, W., Liu, J., & Tong, T. (2014). Estimating the sample mean and standard deviation from the sample size, median, range and/or interquartile range. \emph{BMC Medical Research Methodology, 14}, 1–13.
+#' @references McGrath, S., Zhao, X., Steele, R., Thombs, B. D., Benedetti, A., & the DEPRESSD Collaboration. (2020b). Estimating the sample mean and standard deviation from commonly reported quantiles in meta-analysis. \emph{Statistical Methods in Medical Research, 29}(9), 2520–2537.
+#' @references Freimer, M., Kollia, G., Mudholkar, G. S., & Lin, C. T. (1988). A study of the generalized Tukey lambda family. \emph{Communications in Statistics—Theory and Methods, 17}(10), 3547–3567.
+#' @references Gilchrist, W. (2000). \emph{Statistical modelling with quantile functions}. Chapman & Hall/CRC.
+#' @references van Staden, P. J., & King, R. A. R. (2015). The quantile-based skew logistic distribution. \emph{Statistics & Probability Letters, 96}, 109–116.
+#' @references King, R., Dean, B., Klinke, S., & van Staden, P. (2025). gld: Estimation and use of the Generalised (Tukey) Lambda Distribution (R package Version 2.6.7). Comprehensive R Archive Network (CRAN). https://doi.org/10.32614/CRAN.package.gld. <https://CRAN.R-project.org/package=gld>.
+#' @references King, R., & van Staden, P. (2022). sld: Estimation and use of the Quantile-Based Skew Logistic Distribution (R package Version 1.0.1). Comprehensive R Archive Network (CRAN). https://doi.org/10.32614/CRAN.package.sld. <https://CRAN.R-project.org/package=sld>. 
 #' @export 
 #' 
 #' @importFrom gld qgl gld.moments
@@ -114,7 +113,7 @@ est.mean <- function(min = NULL,
   if (!is.null(min) && !is.null(q1) && !is.null(med) && !is.null(q3) && !is.null(max)) {
     
     if (method == "gld/sld") {
-      glsl_est <- est.density.five(min, q1, med, q3, max, n, opt)
+      glsl_est <- est.gld.five(min, q1, med, q3, max, n, opt)
       mean_est <- glsl_est$mean
       return(list("mean" = mean_est))
       
@@ -134,7 +133,7 @@ est.mean <- function(min = NULL,
         add <- 0
       }
       q_bc <- c(min, q1, med, q3, max) + add
-      mean_est_bc <- bc.mean.sd(min.val = q_bc[1], q1.val = q_bc[2], med.val = q_bc[3], q3.val = q_bc[4], max.val = q_bc[5], n = n)
+      mean_est_bc <- estmeansd::bc.mean.sd(min.val = q_bc[1], q1.val = q_bc[2], med.val = q_bc[3], q3.val = q_bc[4], max.val = q_bc[5], n = n)
       mean_est <- mean_est_bc$est.mean - add
       return(list("mean" = mean_est))
       
@@ -145,7 +144,7 @@ est.mean <- function(min = NULL,
         add <- 0
       }
       q_qe <- c(min, q1, med, q3, max) + add
-      mean_est_qe <- qe.mean.sd(min.val = q_qe[1], q1.val = q_qe[2], med.val = q_qe[3], q3.val = q_qe[4], max.val = q_qe[5], n = n)
+      mean_est_qe <- estmeansd::qe.mean.sd(min.val = q_qe[1], q1.val = q_qe[2], med.val = q_qe[3], q3.val = q_qe[4], max.val = q_qe[5], n = n)
       mean_est <- mean_est_qe$est.mean - add
       return(list("mean" = mean_est))
       
@@ -157,7 +156,7 @@ est.mean <- function(min = NULL,
   } else if (!is.null(min) && !is.null(med) && !is.null(max)) {
     
     if (method == "gld/sld"){
-      glsl_est <- est.density.minq2max(min=min, med=med, max=max, n=n, opt=opt)
+      glsl_est <- est.sld.minq2max(min=min, med=med, max=max, n=n, opt=opt)
       mean_est <- glsl_est$mean
       return(list("mean" = mean_est))
       
@@ -177,7 +176,7 @@ est.mean <- function(min = NULL,
         add <- 0
       }
       q_bc <- c(min,med,max) + add
-      mean_est_bc <- bc.mean.sd(min.val = q_bc[1], med.val = q_bc[2], max.val = q_bc[3], n = n)
+      mean_est_bc <- estmeansd::bc.mean.sd(min.val = q_bc[1], med.val = q_bc[2], max.val = q_bc[3], n = n)
       mean_est <- mean_est_bc$est.mean - add
       return(list("mean" = mean_est))
       
@@ -188,7 +187,7 @@ est.mean <- function(min = NULL,
         add <- 0
       }
       q_qe <- c(min,med,max) + add
-      mean_est_qe <- qe.mean.sd(min.val = q_qe[1], med.val = q_qe[2], max.val = q_qe[3], n = n)
+      mean_est_qe <- estmeansd::qe.mean.sd(min.val = q_qe[1], med.val = q_qe[2], max.val = q_qe[3], n = n)
       mean_est <- mean_est_qe$est.mean - add
       return(list("mean" = mean_est))
       
@@ -200,7 +199,7 @@ est.mean <- function(min = NULL,
   } else if (!is.null(q1) && !is.null(med) && !is.null(q3)) {
     
     if (method == "gld/sld") {
-      glsl_est <- est.density.q1q2q3(q1=q1, med=med, q3=q3, opt=opt)
+      glsl_est <- est.sld.q1q2q3(q1=q1, med=med, q3=q3, opt=opt)
       mean_est <- glsl_est$mean
       return(list("mean" = mean_est))
       
@@ -220,7 +219,7 @@ est.mean <- function(min = NULL,
         add <- 0
       }
       q_bc <- c(q1, med, q3) + add
-      mean_est_bc <- bc.mean.sd(q1.val = q_bc[1], med.val = q_bc[2], q3.val = q_bc[3], n = n)
+      mean_est_bc <- estmeansd::bc.mean.sd(q1.val = q_bc[1], med.val = q_bc[2], q3.val = q_bc[3], n = n)
       mean_est <- mean_est_bc$est.mean - add
       return(list("mean" = mean_est))
       
@@ -231,7 +230,7 @@ est.mean <- function(min = NULL,
         add <- 0
       }
       q_qe <- c(q1, med, q3) + add
-      mean_est_qe <- qe.mean.sd(q1.val = q_qe[1], med.val = q_qe[2], q3.val = q_qe[3], n = n)
+      mean_est_qe <- estmeansd::qe.mean.sd(q1.val = q_qe[1], med.val = q_qe[2], q3.val = q_qe[3], n = n)
       mean_est <- mean_est_qe$est.mean - add
       return(list("mean" = mean_est))
       
@@ -253,7 +252,7 @@ est.mean <- function(min = NULL,
 #' using the method explained in De Livera et al. (2024).
 #'
 #' 
-#' @usage est.density.five(
+#' @usage est.gld.five(
 #'    min = NULL, 
 #'    q1 = NULL, 
 #'    med = NULL, 
@@ -273,19 +272,19 @@ est.mean <- function(min = NULL,
 #'   The default value is \code{TRUE}.
 #' 
 #' @details
-#' De Livera et al., (2024) proposed using the generalised lambda distribution (GLD) to estimate unknown parameters for studies reporting 5-number summaries in the meta-analysis context.
+#' De Livera et al. (2024) proposed using the generalised lambda distribution (GLD) to estimate unknown parameters for studies reporting 5-number summaries in the meta-analysis context.
 #' 
 #' The GLD is a four parameter family of distributions defined by its quantile function under the FKML parameterisation (Freimer et al., 1988).
 #' De Livera et al. propose that the GLD quantlie function can be used to approximate a sample's distribution using 5-point summaries. 
 #' The four parameters of GLD quantile function include: a location parameter (\eqn{\lambda_1}), an inverse scale parameter (\eqn{\lambda_2}>0), and two shape parameters (\eqn{\lambda_3} and \eqn{\lambda_4}).
 #' The parameters of the GLD are estimated by formulating and solving a set of simultaneous equations which relate the estimated sample quantiles to their theoretical counterparts of the GLD. 
 #'
-#' @return 
+#' @return A list with following components:
 #' - \code{parameters}: named numeric vector representing the estimated parameters ('location', 'inverse scale', 'shape 1', 'shape 2') of GLD .
 #' - \code{mean}: numeric value of the estimated mean of the sample using GLD.
 #' - \code{sd}: numeric value of the estimated standard deviation of the sample using GLD.
 #'  
-#' @seealso [est.density.minq2max()], [est.density.q1q2q3()]
+#' @seealso [est.sld.minq2max()], [est.sld.q1q2q3()]
 #' 
 #' @examples
 #' #Generate 5-number summary data
@@ -295,21 +294,21 @@ est.mean <- function(min = NULL,
 #' quants <- c(min(x), stats::quantile(x, probs = c(0.25, 0.5, 0.75)), max(x))
 #' 
 #' #Estimate GLD parameters using 5-number summary
-#' params<- est.density.five(min = quants[1], q1 = quants[2], med = quants[3], q3 = quants[4], 
+#' params<- est.gld.five(min = quants[1], q1 = quants[2], med = quants[3], q3 = quants[4], 
 #'                           max = quants[5], n=n, opt=TRUE)$parameters
 #' params
 #'
-#' @references Alysha De Livera, Luke Prendergast, and Udara Kumaranathunga. A novel density-based approach for estimating unknown means, distribution visualisations, and meta-analyses of quantiles, 2024. Pre-print available here: <https://arxiv.org/abs/2411.10971>.
-#' @references Marshall Freimer, Georgia Kollia, Govind S Mudholkar, and C Thomas Lin. A study of the generalized tukey lambda family. \emph{Communications in Statistics-Theory and Methods}, 17(10):3547–3567, 1988.
-#' @references Warren Gilchrist. Statistical modelling with quantile functions. Chapman and Hall/CRC, 2000.
-#' @references R. King, B. Dean, S. Klinke, and P. van Staden. gld: Estimation and Use of the Generalised (Tukey) Lambda Distribution. R package version 2.6.7, 2025. \doi{10.32614/CRAN.package.gld}. <https://CRAN.R-project.org/package=gld>.
+#' @references De Livera, A. M., Prendergast, L., & Kumaranathunga, U. (2024). A novel density-based approach for estimating unknown means, distribution visualisations and meta-analyses of quantiles. \emph{arXiv preprint arXiv:2411.10971}. <https://arxiv.org/abs/2411.10971>.
+#' @references Freimer, M., Kollia, G., Mudholkar, G. S., & Lin, C. T. (1988). A study of the generalized Tukey lambda family. \emph{Communications in Statistics—Theory and Methods, 17}(10), 3547–3567.
+#' @references Gilchrist, W. (2000). \emph{Statistical modelling with quantile functions}. Chapman & Hall/CRC.
+#' @references King, R., Dean, B., Klinke, S., & van Staden, P. (2025). gld: Estimation and use of the Generalised (Tukey) Lambda Distribution (R package Version 2.6.7). Comprehensive R Archive Network (CRAN). https://doi.org/10.32614/CRAN.package.gld. <https://CRAN.R-project.org/package=gld>.
 #' 
 #' @export 
 #' 
 #' @importFrom gld qgl gld.moments
 #' @importFrom stats integrate optim integrate runif var qnorm
 
-est.density.five <- function(min = NULL, 
+est.gld.five <- function(min = NULL, 
                              q1 = NULL, 
                              med = NULL, 
                              q3 = NULL, 
@@ -360,7 +359,7 @@ est.density.five <- function(min = NULL,
 #' using the method explained in De Livera et al. (2024).
 #'
 #' 
-#' @usage est.density.minq2max(
+#' @usage est.sld.minq2max(
 #'    min = NULL, 
 #'    med = NULL, 
 #'    max = NULL, 
@@ -376,19 +375,19 @@ est.density.five <- function(min = NULL,
 #'   The default value is \code{TRUE}.
 #' 
 #' @details
-#' De Livera et al., (2024) proposed using the skew logistic distribution (SLD) to estimate unknown parameters for studies reporting 3-number summaries in the meta-analysis context.
+#' De Livera et al. (2024) proposed using the skew logistic distribution (SLD) to estimate unknown parameters for studies reporting 3-number summaries in the meta-analysis context.
 #' 
 #' The quantile-based skew logistic distribution, introduced by Gilchrist (2000) and further modified by van Staden and King (2015) 
 #' is used to approximate the sample's distribution using 3-point summaries.
 #' The SLD quantile function is defined using three parameters: a location parameter (\eqn{\lambda}), a scale parameter (\eqn{\eta}), and a skewing parameter (\eqn{\delta}).
 #' The parameters of the SLD are estimated by formulating and solving a set of simultaneous equations which relate the estimated sample quantiles to their theoretical counterparts of the SLD. 
 #'
-#' @return 
+#' @return A list with following components:
 #' - \code{parameters}: named numeric vector representing the estimated parameters ('location', 'scale', 'skewing') of SLD.
 #' - \code{mean}: numeric value of the estimated mean of the sample using SLD.
 #' - \code{sd}: numeric value of the estimated standard deviation of the sample using SLD.
 #'
-#' @seealso [est.density.five()], [est.density.q1q2q3()]
+#' @seealso [est.gld.five()], [est.sld.q1q2q3()]
 #' 
 #' @examples
 #' #Generate 3-number summary data
@@ -398,21 +397,22 @@ est.density.five <- function(min = NULL,
 #' quants <- c(min(x), stats::quantile(x, probs = 0.5), max(x))
 #' 
 #' #Estimate SLD parameters using 3-number summary
-#' params <- est.density.minq2max(min = quants[1], med = quants[2], max = quants[3], 
+#' params <- est.sld.minq2max(min = quants[1], med = quants[2], max = quants[3], 
 #'                                n=n, opt=TRUE)$parameters
 #' params
 #'
-#' @references Alysha De Livera, Luke Prendergast, and Udara Kumaranathunga. A novel density-based approach for estimating unknown means, distribution visualisations, and meta-analyses of quantiles, 2024. Pre-print available here: <https://arxiv.org/abs/2411.10971>.
-#' @references Warren Gilchrist. Statistical modelling with quantile functions. Chapman and Hall/CRC, 2000.
-#' @references P. J. van Staden and R. A. R. King. The quantile-based skew logistic distribution.  \emph{Statistics & Probability Letters}, 96:109–116, 2015.
-#' @references R. King and P. van Staden. sld: Estimation and Use of the Quantile-Based Skew Logistic Distribution. R package version 1.0.1, 2022. \doi{10.32614/CRAN.package.sld}. <https://CRAN.R-project.org/package=sld>.
+#' @references De Livera, A. M., Prendergast, L., & Kumaranathunga, U. (2024). A novel density-based approach for estimating unknown means, distribution visualisations and meta-analyses of quantiles. \emph{arXiv preprint arXiv:2411.10971}. <https://arxiv.org/abs/2411.10971>.
+#' @references Gilchrist, W. (2000). \emph{Statistical modelling with quantile functions}. Chapman & Hall/CRC.
+#' @references van Staden, P. J., & King, R. A. R. (2015). The quantile-based skew logistic distribution. \emph{Statistics & Probability Letters, 96}, 109–116.
+#' @references King, R., & van Staden, P. (2022). sld: Estimation and use of the Quantile-Based Skew Logistic Distribution (R package Version 1.0.1). Comprehensive R Archive Network (CRAN). https://doi.org/10.32614/CRAN.package.sld. <https://CRAN.R-project.org/package=sld>. 
+#' 
 #' 
 #' @export 
 #' 
 #' @importFrom sld qsl
  
 
-est.density.minq2max <- function(min = NULL, 
+est.sld.minq2max <- function(min = NULL, 
                                  med = NULL, 
                                  max = NULL, 
                                  n = NULL, 
@@ -453,7 +453,7 @@ est.density.minq2max <- function(min = NULL,
 #' using the method explained in De Livera et al. (2024).
 #'
 #' 
-#' @usage est.density.q1q2q3(
+#' @usage est.sld.q1q2q3(
 #'    q1 = NULL, 
 #'    med = NULL, 
 #'    q3 = NULL, 
@@ -469,19 +469,19 @@ est.density.minq2max <- function(min = NULL,
 #'   The default value is \code{TRUE}.
 #' 
 #' @details
-#' De Livera et al., (2024) proposed using the skew logistic distribution (SLD) to estimate unknown parameters for studies reporting 3-number summaries in the meta-analysis context.
+#' De Livera et al. (2024) proposed using the skew logistic distribution (SLD) to estimate unknown parameters for studies reporting 3-number summaries in the meta-analysis context.
 #' 
 #' The quantile-based skew logistic distribution, introduced by Gilchrist (2000) and further modified by van Staden and King (2015) 
 #' is used to approximate the sample's distribution using 3-point summaries.
 #' The SLD quantile function is defined using three parameters: a location parameter (\eqn{\lambda}), a scale parameter (\eqn{\eta}), and a skewing parameter (\eqn{\delta}).
 #' The parameters of the SLD are estimated by formulating and solving a set of simultaneous equations which relate the estimated sample quantiles to their theoretical counterparts of the SLD. 
 #'
-#' @return 
+#' @return A list with following components:
 #' - \code{parameters}: named numeric vector representing the estimated parameters ('location', 'scale', 'skewing') of SLD.
 #' - \code{mean}: numeric value of the estimated mean of the sample using SLD.
 #' - \code{sd}: numeric value of the estimated standard deviation of the sample using SLD.
 #'
-#' @seealso [est.density.five()], [est.density.minq2max()]
+#' @seealso [est.gld.five()], [est.sld.minq2max()]
 #' 
 #' @examples
 #' #Generate 3-number summary data
@@ -491,20 +491,21 @@ est.density.minq2max <- function(min = NULL,
 #' quants <- c(stats::quantile(x, probs = c(0.25, 0.5, 0.75)))
 #' 
 #' #Estimate SLD parameters using 3-number summary
-#' params<- est.density.q1q2q3(q1 = quants[1], med = quants[2], q3 = quants[3], 
+#' params<- est.sld.q1q2q3(q1 = quants[1], med = quants[2], q3 = quants[3], 
 #'                             n=n, opt=TRUE)$parameters
 #' params
 #'
-#' @references Alysha De Livera, Luke Prendergast, and Udara Kumaranathunga. A novel density-based approach for estimating unknown means, distribution visualisations, and meta-analyses of quantiles, 2024. Pre-print available here: <https://arxiv.org/abs/2411.10971>.
-#' @references Warren Gilchrist. Statistical modelling with quantile functions. Chapman and Hall/CRC, 2000.
-#' @references P. J. van Staden and R. A. R. King. The quantile-based skew logistic distribution.  \emph{Statistics & Probability Letters}, 96:109–116, 2015.
-#' @references R. King and P. van Staden. sld: Estimation and Use of the Quantile-Based Skew Logistic Distribution. R package version 1.0.1, 2022. \doi{10.32614/CRAN.package.sld}. <https://CRAN.R-project.org/package=sld>.
+#' @references De Livera, A. M., Prendergast, L., & Kumaranathunga, U. (2024). A novel density-based approach for estimating unknown means, distribution visualisations and meta-analyses of quantiles. \emph{arXiv preprint arXiv:2411.10971}. <https://arxiv.org/abs/2411.10971>.
+#' @references Gilchrist, W. (2000). \emph{Statistical modelling with quantile functions}. Chapman & Hall/CRC.
+#' @references van Staden, P. J., & King, R. A. R. (2015). The quantile-based skew logistic distribution. \emph{Statistics & Probability Letters, 96}, 109–116.
+#' @references King, R., & van Staden, P. (2022). sld: Estimation and use of the Quantile-Based Skew Logistic Distribution (R package Version 1.0.1). Comprehensive R Archive Network (CRAN). https://doi.org/10.32614/CRAN.package.sld. <https://CRAN.R-project.org/package=sld>.#' 
+#' 
 #' 
 #' @export 
 #' 
 #' @importFrom sld qsl
 
-est.density.q1q2q3 <- function(q1 = NULL, 
+est.sld.q1q2q3 <- function(q1 = NULL, 
                                med = NULL, 
                                q3 = NULL, 
                                n = NULL, 

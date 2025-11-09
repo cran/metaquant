@@ -30,7 +30,7 @@ plotdist(
 )
 }
 \arguments{
-\item{data}{data frame containing the quantile summary data. For one-group studies, the input dataset may contain the following columns depending on the quantile scenario:
+\item{data}{data frame containing the quantile summary data. For one-group studies, the input may contain the following columns depending on the quantile scenario:
 \describe{
 \item{\code{'stduy.index'}}{stduy index or name}
 \item{\code{'min.g1'}}{minimum value}
@@ -157,11 +157,11 @@ print(plot_2g)
 
 }
 \references{
-Alysha De Livera, Luke Prendergast, and Udara Kumaranathunga. A novel density-based approach for estimating unknown means, distribution visualisations, and meta-analyses of quantiles. \emph{Submitted for Review}, 2024, pre-print available here: \url{https://arxiv.org/abs/2411.10971}
+De Livera, A. M., Prendergast, L., & Kumaranathunga, U. (2024). A novel density-based approach for estimating unknown means, distribution visualisations and meta-analyses of quantiles. \emph{arXiv preprint arXiv:2411.10971}. \url{https://arxiv.org/abs/2411.10971}.
 
-Marshall Freimer, Georgia Kollia, Govind S Mudholkar, and C Thomas Lin. A study of the generalized tukey lambda family. \emph{Communications in Statistics-Theory and Methods}, 17(10):3547–3567, 1988.
+Freimer, M., Kollia, G., Mudholkar, G. S., & Lin, C. T. (1988). A study of the generalized Tukey lambda family. \emph{Communications in Statistics—Theory and Methods, 17}(10), 3547–3567.
 
-Warren Gilchrist. \emph{Statistical modelling with quantile functions}. Chapman and Hall/CRC, 2000.
+Gilchrist, W. (2000). \emph{Statistical modelling with quantile functions}. Chapman & Hall/CRC.
 
-P. J. van Staden and R. A. R. King. The quantile-based skew logistic distribution.  \emph{Statistics & Probability Letters}, 96:109–116, 2015.
+van Staden, P. J., & King, R. A. R. (2015). The quantile-based skew logistic distribution. \emph{Statistics & Probability Letters, 96}, 109–116.
 }
